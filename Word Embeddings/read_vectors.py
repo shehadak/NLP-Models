@@ -26,6 +26,11 @@ def find_closest_words(e, v, n):
     # output: n words closest to vector v in the embeddings.
     return sorted(e, key=lambda x: cosine_similarity(v, e[x]))[::-1][:n]
 
+def similarity_two_sentences(e, s1, s2):
+	v1 = np.mean([e[w] for w in s1.split(' ')], axis=0)
+	v2 = np.mean([e[w] for w in s2.split(' ')], axis=0)
+	return cosine_similarity(v1, v2)
+
 e = read_vectors_from_file(FILENAME)
 y = find_analogy(e, 'man', 'king', 'girl')
 print(find_closest_words(e, y, 5))
